@@ -1,40 +1,46 @@
-import React,{ useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from "./serviceWorker";
 
+const App = props => {
+  const [count, setCount] = useState(props.count);
+  const [text, setText] = useState("");
 
+  const increment = () => {
+    setCount(count + 1);
+  };
 
-const App = (props) =>{
-    const [count , setCount ] = useState(props.count);
+  const decrement = () => {
+    setCount(count - 1);
+  };
 
-    const increment = () =>{
-      setCount(count + 1);
-    }
+  const reset = () => {
+    setCount(props.count);
+  };
 
-    const decrement = () =>{
-      setCount(count - 1);
-    }
+  const setTextValue = e => {
+    setText(e.target.value);
+  };
 
-    const reset = () => {
-        setCount (props.count);
-    }
-
-    return (
-        <div>
-        <p>The Current Count Is {count}</p>
-        <button onClick={increment}>+1</button>
-        <button onClick={reset}>reset</button>
-        <button onClick={decrement}>-1</button>
-        </div>
-    )
-}
+  return (
+    <div>
+      <p>
+        The Current {text || "Count"} Is {count}
+      </p>
+      <button onClick={increment}>+1</button>
+      <button onClick={reset}>reset</button>
+      <button onClick={decrement}>-1</button>
+      <input value={text} onChange={setTextValue} />
+    </div>
+  );
+};
 
 App.defaultProps = {
-    count: 0
-}
+  count: 0
+};
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
